@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct {
+    char op;
+    char arg1[10];
+    char arg2[10];
+    char result[10];
+} ThreeAddressCode;
+void generateBackendCode(ThreeAddressCode *code, int numCodes) {
+    printf("Backend Code:\n");
+
+    for (int i = 0; i < numCodes; i++) {
+        printf("%s: %s %c %s\n", code[i].result, code[i].arg1, code[i].op, code[i].arg2);
+    }
+}
+int main() {
+    ThreeAddressCode code[] = {
+        {'=', "a", "", "temp1"},
+        {'=', "b", "", "temp2"},
+        {'+', "temp1", "temp2", "temp3"},
+        {'=', "temp3", "", "result"},
+    };
+
+    int numCodes = sizeof(code) / sizeof(code[0]);
+    generateBackendCode(code, numCodes);
+    return 0;
+}
